@@ -1,12 +1,16 @@
 import React from 'react';
-import logo from './logo.svg';
+import Navbar from './components/navbar';
 import './App.css';
+import "react-toastify/dist/ReactToastify.css";
+import { GetCurrencyPairs } from './services/currencyPairService';
+
 
 function App() {
   return (
-    <div className="App">
-      
-    </div>
+    <>
+      <Navbar/>
+      <GetCurrencyPairs/>
+    </>
   );
 }
 
