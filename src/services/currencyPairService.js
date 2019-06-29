@@ -5,6 +5,7 @@ import CurrencyPairDropDdown from '../components/currencyPairDropdown';
 export function GetCurrencyPairs() {
     const [currencyPairs, setCurrencyPairs] = useState([]);
 
+    
     useEffect(() => {
         const fetchCurrencyPair = async () => {
             try {
