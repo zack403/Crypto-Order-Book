@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { toast } from "react-toastify";
+
 
 const CurrencyPairDropDdown = ({ currencyPairs }) => {
   const [bids, setBids] = useState();
@@ -7,7 +9,7 @@ const CurrencyPairDropDdown = ({ currencyPairs }) => {
   const handleChange = ({ target }) => {
     let socket = new WebSocket("wss://ws.bitstamp.net");
     socket.onopen = function(e) {
-      alert("[open] Connection established, send -> server");
+      console.log("[open] Connection established, send -> server");
       socket.send(
         JSON.stringify({
           event: "bts:unsubscribe",
@@ -32,6 +34,8 @@ const CurrencyPairDropDdown = ({ currencyPairs }) => {
       setBids(bids);
       setAsks(asks);      
     };
+    toast.success('Showing streaming order books (list of asks and bids)');
+
     socket.onclose = function(event) {
       if (event.wasClean) {
         alert(
@@ -58,14 +62,15 @@ const CurrencyPairDropDdown = ({ currencyPairs }) => {
 
   return (
     <div className="form-group container">
-      <label htmlFor="currencyPair">Currency Pair</label>
+      <label htmlFor="currencyPair" style={{'fontSize': 20}}>Currency Pair</label>
       <select
         name="currencyPair"
         className="form-control"
         id="currencyPair"
         onChange={handleChange}
+        
       >
-        <option value="" />
+        <option  value="">Select to show streaming order books (list of bids and asks)</option>
         {currencyPairs.map(currency => (
           <option key={currency.url_symbol} value={currency.url_symbol}>
             {currency.name}
