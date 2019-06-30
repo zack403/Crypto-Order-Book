@@ -7,9 +7,14 @@ const CurrencyPairDropDdown = ({ currencyPairs }) => {
   const [asks, setAsks] = useState();
 
   const handleChange = ({ target }) => {
+      //Bitstamp server
     let socket = new WebSocket("wss://ws.bitstamp.net");
+
+    //connect to bitstamp server here
     socket.onopen = function(e) {
       console.log("[open] Connection established, send -> server");
+
+      //send to bitstamp server to unsubscribe from the previous selected channel in the dropdown
       socket.send(
         JSON.stringify({
           event: "bts:unsubscribe",
@@ -18,6 +23,8 @@ const CurrencyPairDropDdown = ({ currencyPairs }) => {
           }
         })
       );
+
+      //send to bitstamp server to subscribe to the newly selected channel in the dropdown
       socket.send(
         JSON.stringify({
           event: "bts:subscribe",
@@ -27,6 +34,8 @@ const CurrencyPairDropDdown = ({ currencyPairs }) => {
         })
       );
     };
+
+    //bitstamp server message returned here, pass the message to our state
     socket.onmessage = function(event) {
       //console.log(`[message] Data received: ${event.data} <- server`);
       const response = JSON.parse(event.data);
@@ -34,15 +43,13 @@ const CurrencyPairDropDdown = ({ currencyPairs }) => {
       setBids(bids);
       setAsks(asks);      
     };
+    // display a toast notification
     toast.success('Showing streaming order books (list of asks and bids)');
 
+    //if there was a closed connecton between the browser and the server , or there was a network failure, handle it here
     socket.onclose = function(event) {
       if (event.wasClean) {
-        alert(
-          `[close] Connection closed cleanly, code=${event.code} reason=${
-            event.reason
-          }`
-        );
+        alert(`[close] Connection closed cleanly, code=${event.code} reason=${event.reason}`);
       } else {
         // e.g. server process killed or network down
         // event.code is usually 1006 in this case
@@ -50,6 +57,7 @@ const CurrencyPairDropDdown = ({ currencyPairs }) => {
       }
     };
 
+    //if there was an error connecting to the server , handle it here..
     socket.onerror = function(error) {
       alert(`[error] ${error.message}`);
     };
@@ -57,21 +65,15 @@ const CurrencyPairDropDdown = ({ currencyPairs }) => {
 
   const styles = {
     listStyleType: 'none'
-}
+ }
 
 
   return (
     <div className="form-group container">
       <label htmlFor="currencyPair" style={{'fontSize': 20}}>Currency Pair</label>
-      <select
-        name="currencyPair"
-        className="form-control"
-        id="currencyPair"
-        onChange={handleChange}
-        
-      >
-        <option  value="">Select to show streaming order books (list of bids and asks)</option>
-        {currencyPairs.map(currency => (
+      <select name="currencyPair" className="form-control" id="currencyPair" onChange={handleChange}>
+         <option  value="">Select to show streaming order books (list of bids and asks)</option>
+         {currencyPairs.map(currency => (
           <option key={currency.url_symbol} value={currency.url_symbol}>
             {currency.name}
           </option>
