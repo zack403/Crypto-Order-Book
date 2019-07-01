@@ -64,7 +64,12 @@ const CurrencyPairDropDdown = ({ currencyPairs }) => {
   };
 
   const styles = {
-    listStyleType: 'none'
+    listStyleType: 'none',
+    textAlign: 'right'
+ }
+
+ const h2 = {
+     marginLeft : '216px'
  }
 
 
@@ -73,31 +78,31 @@ const CurrencyPairDropDdown = ({ currencyPairs }) => {
       <label htmlFor="currencyPair" style={{'fontSize': 20}}>Currency Pair</label>
       <select name="currencyPair" className="form-control" id="currencyPair" onChange={handleChange}>
          <option  value="">Select to show streaming order books (list of bids and asks)</option>
-         {currencyPairs.map(currency => (
-          <option key={currency.url_symbol} value={currency.url_symbol}>
-            {currency.name}
+         {currencyPairs.map(({url_symbol, name}) => (
+          <option key={url_symbol} value={url_symbol}>
+            {name}
           </option>
         ))}
       </select>
 
       {bids && asks && (
         <div className="mt-5 row">
-            <div className="col-md-6">
-              <h2>Bids</h2>
+            <div className="col-md-4">
+              <h2 style={h2} >Bids</h2>
               {
                   bids.map(bid => (
                       <li style={styles} key={bid[0]}>{bid[1]} BTC @ {bid[0]} USD</li>
                   ))
               }
             </div>
-            <div className="col-md-6">
-              <h2>Asks</h2>
+            <div className="col-md-4">
+              <h2 style={h2}>Asks</h2>
               {
                    asks.map(ask => (
                     <li style={styles} key={ask[0]}>{ask[1]} BTC @ {ask[0]} USD</li>
                 ))
               }
-            </div>
+            </div>  
         </div>
       )}
     </div>
