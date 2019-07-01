@@ -2,12 +2,20 @@ import React, { useState } from "react";
 import { toast } from "react-toastify";
 
 
+
 const CurrencyPairDropDdown = ({ currencyPairs }) => {
   const [bids, setBids] = useState();
   const [asks, setAsks] = useState();
+  const [loading, setLoading] = useState(false);
+  const [toaster, setToaster] = useState(false);
+
+ 
+
+
 
   const handleChange = ({ target }) => {
-      //Bitstamp server
+    setLoading(true);
+    //Bitstamp server
     let socket = new WebSocket("wss://ws.bitstamp.net");
 
     //connect to bitstamp server here
@@ -41,10 +49,15 @@ const CurrencyPairDropDdown = ({ currencyPairs }) => {
       const response = JSON.parse(event.data);
       const {bids, asks} = response.data;
       setBids(bids);
-      setAsks(asks);      
+      setAsks(asks);   
+      setLoading(false);
+      setToaster(true);     
     };
-    // display a toast notification
-    toast.success('Showing streaming order books (list of asks and bids)');
+        // display a toast notification
+        if(toaster) {
+            toast.success('Showing streaming order books (list of asks and bids)');
+        } 
+   
 
     //if there was a closed connecton between the browser and the server , or there was a network failure, handle it here
     socket.onclose = function(event) {
@@ -84,8 +97,8 @@ const CurrencyPairDropDdown = ({ currencyPairs }) => {
           </option>
         ))}
       </select>
-
-      {bids && asks && (
+      { loading && <div className="spinner"></div> }
+      {(bids && asks) && (
         <div className="mt-5 row">
             <div className="col-md-4">
               <h2 style={h2} >Bids</h2>
