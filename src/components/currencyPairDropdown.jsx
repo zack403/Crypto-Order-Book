@@ -45,13 +45,14 @@ const CurrencyPairDropDdown = ({ currencyPairs }) => {
 
     //bitstamp server message returned here, pass the message to our state
     socket.onmessage = function(event) {
+        setToaster(true);     
+
       //console.log(`[message] Data received: ${event.data} <- server`);
       const response = JSON.parse(event.data);
       const {bids, asks} = response.data;
       setBids(bids);
       setAsks(asks);   
       setLoading(false);
-      setToaster(true);     
     };
         // display a toast notification
         if(toaster) {
