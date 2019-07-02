@@ -62,6 +62,7 @@ const CurrencyPairDropDdown = ({ currencyPairs }) => {
 
     //if there was a closed connecton between the browser and the server , or there was a network failure, handle it here
     socket.onclose = function(event) {
+      setLoading(false);
       if (event.wasClean) {
         alert(`[close] Connection closed cleanly, code=${event.code} reason=${event.reason}`);
       } else {
@@ -73,6 +74,7 @@ const CurrencyPairDropDdown = ({ currencyPairs }) => {
 
     //if there was an error connecting to the server , handle it here..
     socket.onerror = function(error) {
+      setLoading(false);
       alert(`[error] ${error.message}`);
     };
   };
