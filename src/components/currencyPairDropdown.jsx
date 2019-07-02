@@ -93,7 +93,7 @@ const CurrencyPairDropDdown = ({ currencyPairs }) => {
     <div className="form-group container">
       <label htmlFor="currencyPair" style={{'fontSize': 20}}>Currency Pair</label>
       <select name="currencyPair" className="form-control" id="currencyPair" onChange={handleChange}>
-         <option  value="">Select to show streaming order books (list of bids and asks)</option>
+         <option disabled selected  value="">Select to show streaming order books (list of bids and asks)</option>
          {currencyPairs.map(({url_symbol, name}) => (
           <option key={url_symbol} value={url_symbol}>
             {name}
