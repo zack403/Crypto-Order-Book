@@ -1,0 +1,18 @@
+{
+  "files": {
+    "main.css": "/Crypto-Order-Book/static/css/main.d69faa60.chunk.css",
+    "main.js": "/Crypto-Order-Book/static/js/main.7d1b414f.chunk.js",
+    "main.js.map": "/Crypto-Order-Book/static/js/main.7d1b414f.chunk.js.map",
+    "runtime~main.js": "/Crypto-Order-Book/static/js/runtime~main.4686f22c.js",
+    "runtime~main.js.map": "/Crypto-Order-Book/static/js/runtime~main.4686f22c.js.map",
+    "static/css/2.0c3234d5.chunk.css": "/Crypto-Order-Book/static/css/2.0c3234d5.chunk.css",
+    "static/js/2.e3dccbf8.chunk.js": "/Crypto-Order-Book/static/js/2.e3dccbf8.chunk.js",
+    "static/js/2.e3dccbf8.chunk.js.map": "/Crypto-Order-Book/static/js/2.e3dccbf8.chunk.js.map",
+    "index.html": "/Crypto-Order-Book/index.html",
+    "precache-manifest.054cb0dd534513550efbd63ec726c538.js": "/Crypto-Order-Book/precache-manifest.054cb0dd534513550efbd63ec726c538.js",
+    "service-worker.js": "/Crypto-Order-Book/service-worker.js",
+    "static/css/2.0c3234d5.chunk.css.map": "/Crypto-Order-Book/static/css/2.0c3234d5.chunk.css.map",
+    "static/css/main.d69faa60.chunk.css.map": "/Crypto-Order-Book/static/css/main.d69faa60.chunk.css.map",
+    "static/media/font-awesome.css": "/Crypto-Order-Book/static/media/fontawesome-webfont.fee66e71.woff"
+  }
+}
